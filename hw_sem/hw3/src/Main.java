@@ -9,7 +9,7 @@ public class Main {
         myList.print();
 
         myList.add(4);
-        myList.add(5);
+        myList.add(1, 5);
         myList.print();
 
         myList.remove(0);
@@ -19,5 +19,7 @@ public class Main {
 
         myList.remove(myList.get(2));
         myList.print();
+
+        System.out.println(myList.contains(num1));
     }
 }

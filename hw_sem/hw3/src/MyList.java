@@ -22,7 +22,11 @@ public class MyList implements IntegerList {
     }
 
     private void resize() {
-        capacity *= 2;
+        if (Integer.MAX_VALUE - capacity > capacity){
+            capacity *= 2;
+        } else {
+            capacity = Integer.MAX_VALUE;
+        }
         Integer[] newMyList = new Integer[capacity];
         for (int i = 0; i < size; i++) {
             newMyList[i] = myList[i];
@@ -58,6 +62,10 @@ public class MyList implements IntegerList {
     public void add(int index, Integer element) {
         if (index > size){
             throw new IndexOutOfBoundsException();
+        }
+
+        if (size == Integer.MAX_VALUE) {
+            return;
         }
 
         if (size == capacity) {
