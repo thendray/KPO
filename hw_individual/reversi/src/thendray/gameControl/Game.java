@@ -1,14 +1,16 @@
-package reversi.gameControl;
+package thendray.gameControl;
 
-import reversi.models.Cell;
-import reversi.models.GameBoard;
-import reversi.models.GameBoardHistory;
-import reversi.models.player.ComputerPlayer;
-import reversi.models.player.Player;
-import reversi.models.player.RealPlayer;
+import thendray.models.Cell;
+import thendray.models.GameBoard;
+import thendray.models.GameBoardHistory;
+import thendray.models.chip.ChipTypes;
+import thendray.models.player.ComputerPlayer;
+import thendray.models.player.Player;
+import thendray.models.player.RealPlayer;
 
 
-import static reversi.tools.InputInformation.*;
+
+import static thendray.tools.InputInformation.*;
 
 public class Game {
 
@@ -30,24 +32,33 @@ public class Game {
             name2 = inputPlayerName("второго");
         }
         boolean isChipTypeCircle = inputChipType();
-        player1 = new RealPlayer(name, isChipTypeCircle);
-
-        if (choice.equals("2")) {
-            player2 = new RealPlayer(name2, !isChipTypeCircle);
+        if (isChipTypeCircle) {
+            player1 = new RealPlayer(name, ChipTypes.Circle);
+            if (choice.equals("2")) {
+                player2 = new RealPlayer(name2, ChipTypes.Square);
+            } else {
+                player2 = new ComputerPlayer(ChipTypes.Square);
+            }
         } else {
-            player2 = new ComputerPlayer(!isChipTypeCircle);
+            player1 = new RealPlayer(name, ChipTypes.Square);
+            if (choice.equals("2")) {
+                player2 = new RealPlayer(name2, ChipTypes.Circle);
+            } else {
+                player2 = new ComputerPlayer(ChipTypes.Circle);
+            }
         }
 
         gameBoard = new GameBoard();
-        gameBoardHistory = new GameBoardHistory(gameBoard);
+        gameBoardHistory = new GameBoardHistory();
         isPlayer1Turn = true;
     }
 
     public void startGame() {
         Cell newChosenCell = null;
-        System.out.println(gameBoard);
 
         while (gameBoard.isNotFull() && !gameBoard.isOneTypeOfChipOnBoard()) {
+            System.out.println();
+            System.out.println(gameBoard);
             if (isPlayer1Turn) {
                 System.out.println(String.format("\nХод первого игрока. %s ходите!\n", player1.getName()));
             } else {
@@ -69,11 +80,12 @@ public class Game {
             }
 
             if (newChosenCell != null){
-                gameBoard.changeCell(newChosenCell);
                 if (!(player2.isComputer() && !isPlayer1Turn)) {
                     gameBoardHistory.addNewGameBoardCondition(gameBoard);
                 }
+                gameBoard.putChipOnCell(newChosenCell);
             } else {
+                System.out.println("\nХодов больше нет!");
                 break;
             }
 
@@ -94,10 +106,31 @@ public class Game {
 
 
     public int gameResults() {
-        System.out.println("Результаты игры: ");
+        System.out.println("\nРезультаты игры: ");
 
-        int maxPoints = 10;
+        int countPlayer1Chip = 0;
+        int countPlayer2Chip = 0;
 
-        return maxPoints;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (gameBoard.getBoardCells()[i][i].getChip().getType() == player1.getChipType()) {
+                    countPlayer1Chip += 1;
+                } else if (gameBoard.getBoardCells()[i][i].getChip().getType() == player2.getChipType()) {
+                    countPlayer2Chip += 1;
+                }
+            }
+        }
+
+        System.out.println(String.format("Игрок %s набрал %d очк.", player1.getName(), countPlayer1Chip));
+        System.out.println(String.format("Игрок %s набрал %d очк.", player2.getName(), countPlayer2Chip));
+        System.out.print("И победу одерживает ... ");
+
+        if (countPlayer1Chip >= countPlayer2Chip) {
+            System.out.println(player1.getName());
+        } else {
+            System.out.println(player2.getName());
+        }
+
+        return Math.max(countPlayer1Chip, countPlayer2Chip);
     }
 }

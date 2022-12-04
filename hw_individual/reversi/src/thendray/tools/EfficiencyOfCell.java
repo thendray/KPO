@@ -1,7 +1,7 @@
-package reversi.tools;
+package thendray.tools;
 
-import reversi.models.Cell;
-import reversi.models.GameBoard;
+import thendray.models.Cell;
+import thendray.models.GameBoard;
 
 public class EfficiencyOfCell {
 

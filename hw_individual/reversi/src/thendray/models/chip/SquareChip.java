@@ -1,4 +1,4 @@
-package reversi.models.chip;
+package thendray.models.chip;
 
 public class SquareChip extends Chip {
     public SquareChip() {
@@ -7,6 +7,6 @@ public class SquareChip extends Chip {
 
     @Override
     public String toString() {
-        return " □";
+        return " □ ";
     }
 }

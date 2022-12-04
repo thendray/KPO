@@ -1,4 +1,4 @@
-package reversi.tools;
+package thendray.tools;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class InputInformation {
     Нажмите 1, если хотите завершить
     Нажмите 2, если хотите продолжить
     """;
-    final static String goBackForOneStepMessage = "Хоитите отменить ход? (введите 1, если да, 2 - нет)";
+    final static String goBackForOneStepMessage = "\nХотите отменить ход? (введите 1, если да, 2 - нет)";
 
     public static String inputQuantityOfPlayers() {
         String choice;

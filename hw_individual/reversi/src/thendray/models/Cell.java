@@ -1,9 +1,9 @@
-package reversi.models;
+package thendray.models;
 
-import reversi.models.chip.Chip;
-import reversi.models.chip.CircleChip;
-import reversi.models.chip.EmptyChip;
-import reversi.models.chip.SquareChip;
+import thendray.models.chip.Chip;
+import thendray.models.chip.CircleChip;
+import thendray.models.chip.EmptyChip;
+import thendray.models.chip.SquareChip;
 
 public class Cell {
     private final int X;
@@ -36,6 +36,13 @@ public class Cell {
         } else {
             chip = new SquareChip();
         }
+    }
+
+    public boolean equals(Cell cell) {
+        if (cell.X == X && cell.Y == Y) {
+            return true;
+        }
+        return false;
     }
 
     @Override

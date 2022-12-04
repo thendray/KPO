@@ -1,6 +1,6 @@
-package reversi.gameControl;
+package thendray.gameControl;
 
-import static reversi.tools.InputInformation.inputFinishTheSession;
+import static thendray.tools.InputInformation.inputFinishTheSession;
 
 public class GameSession {
     Game currentGame;
@@ -8,7 +8,9 @@ public class GameSession {
     final String startGreeting = "Приветствую тебя в игре РЕВЕРСИ";
     final String gameResultsMessage = "Игра завершена со слежующими результатами: ";
     final String endingGameMessage = "\nСпасибо за игру! Может сыграем еще?!\n";
-    final String finishSessionMessage = "\nЗдорово провели время! Лучший результат за все время - . До новых встреч!";
+    final String finishSessionMessage = "\nЗдорово провели время!\n" +
+            " Лучший результат за все время - %d.\n" +
+            " До новых встреч!";
     final String newGameMessage = "\nДавай сыграем!!!\n";
 
 
@@ -35,7 +37,7 @@ public class GameSession {
     public boolean mayFinishSession() {
         boolean finishSession = inputFinishTheSession();
         if (finishSession) {
-            System.out.println(finishSessionMessage);
+            System.out.println(String.format(finishSessionMessage, bestGamePoints));
         }
         return finishSession;
     }

@@ -1,4 +1,4 @@
-package reversi.models.chip;
+package thendray.models.chip;
 
 public abstract class Chip {
     ChipTypes type;

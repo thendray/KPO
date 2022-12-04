@@ -1,6 +1,10 @@
-package reversi.models;
+package thendray.models;
 
-import reversi.models.chip.ChipTypes;
+import thendray.models.chip.ChipTypes;
+
+import java.util.List;
+
+import static thendray.tools.LockedCells.getLockedCells;
 
 public class GameBoard {
     private final Cell[][] boardCells;
@@ -8,6 +12,15 @@ public class GameBoard {
     public Cell[][] getBoardCells() {
         return boardCells;
     }
+    public GameBoard(Cell[][] boardCells) {
+        this.boardCells = new Cell[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.boardCells[i][j] = boardCells[i][j];
+            }
+        }
+    }
+
 
     public GameBoard() {
         boardCells = new Cell[8][8];
@@ -51,11 +64,21 @@ public class GameBoard {
         return false;
     }
 
-    public void changeCell(Cell cell) {
+    public void putChipOnCell(Cell cell) {
         int x = cell.getX();
         int y = cell.getY();
 
+        List<Cell> lockedCells = getLockedCells(cell, cell.chip.getType(), boardCells);
         boardCells[x][y] = cell;
+        for (Cell lockedCell : lockedCells) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (boardCells[i][j].equals(lockedCell)) {
+                        boardCells[i][j] = new Cell(i, j, lockedCell.chip.getType() != ChipTypes.Circle);
+                    }
+                }
+            }
+        }
     }
 
     @Override

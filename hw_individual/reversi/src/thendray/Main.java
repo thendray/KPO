@@ -1,7 +1,6 @@
-package reversi;
+package thendray;
 
-import reversi.gameControl.GameSession;
-import reversi.models.GameBoard;
+import thendray.gameControl.GameSession;
 
 public class Main {
     public static void main(String[] args) {
