@@ -196,6 +196,9 @@ public class Game {
         } else {
             System.out.println(player2.getName());
         }
+        if (player2.isComputer()) {
+            return countPlayer1Chip;
+        }
 
         return Math.max(countPlayer1Chip, countPlayer2Chip);
     }
