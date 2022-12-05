@@ -74,7 +74,7 @@ public class GameBoard {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (boardCells[i][j].equals(lockedCell)) {
-                        boardCells[i][j] = new Cell(j, i, lockedCell.chip.getType() != ChipTypes.Circle);
+                        boardCells[i][j] = new Cell(i, j, lockedCell.chip.getType() != ChipTypes.Circle);
                     }
                 }
             }

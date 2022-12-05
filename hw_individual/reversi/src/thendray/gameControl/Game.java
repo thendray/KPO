@@ -77,7 +77,7 @@ public class Game {
 
                 if (newChosenCell != null){
                     System.out.println(String.format("ходит: %s%d\n",
-                            Character.toString('A' + newChosenCell.getX()), newChosenCell.getY() +1));
+                            Character.toString('A' + newChosenCell.getY()), newChosenCell.getX() +1));
                 }
             }
 
