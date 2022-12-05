@@ -67,18 +67,49 @@ public class GameBoard {
     public void putChipOnCell(Cell cell) {
         int x = cell.getX();
         int y = cell.getY();
+        List<Cell> lockedCells = getLockedCells(cell, cell.getChip().getType(), boardCells);
 
-        List<Cell> lockedCells = getLockedCells(cell, cell.chip.getType(), boardCells);
-        boardCells[x][y] = cell;
+        boardCells[y][x] = cell;
         for (Cell lockedCell : lockedCells) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (boardCells[i][j].equals(lockedCell)) {
-                        boardCells[i][j] = new Cell(i, j, lockedCell.chip.getType() != ChipTypes.Circle);
+                        boardCells[i][j] = new Cell(j, i, lockedCell.chip.getType() != ChipTypes.Circle);
                     }
                 }
             }
         }
+    }
+
+    public String gameBoardWithPrompts(List<Cell> promptCells) {
+        StringBuilder result = new StringBuilder();
+        int numberOfRow = 'A';
+        for (int i = 0; i < 8; i++) {
+            if (i == 0) {
+                result.append("   _______________________________________________\n");
+            } else {
+                result.append("  |-----+-----+-----+-----+-----+-----+-----+-----|\n");
+            }
+            result.append(Character.toString(numberOfRow)).append(" | ");
+            numberOfRow += 1;
+            for (int j = 0; j < 8; j++) {
+                boolean isPromptCell = false;
+                for (Cell prompt : promptCells) {
+                    if (boardCells[i][j].equals(prompt)) {
+                        result.append(" ◆  | ");
+                        isPromptCell = true;
+                        break;
+                    }
+                }
+                if (!isPromptCell){
+                    result.append(boardCells[i][j]).append(" | ");
+                }
+            }
+            result.append("\n");
+        }
+        result.append("   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n");
+        result.append("     1     2     3     4     5     6     7     8");
+        return result.toString();
     }
 
     @Override

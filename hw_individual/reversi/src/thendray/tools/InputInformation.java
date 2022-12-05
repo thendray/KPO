@@ -10,7 +10,7 @@ public class InputInformation {
             Нажмите 2, если хотите играть против другого игрока.
             """;
     final static String playerNameMessage = "\nВведите имя %s игрока: ";
-    final static String chipChoiceMessage = """
+    final static String gameModeChoice = """
             
             Выбирете фишку, которой будет играть первый игрок. Оппоненту достанеся вторая фишка.
             Нажмите 1, если хотите играть за круг (◯)
@@ -23,6 +23,12 @@ public class InputInformation {
     Нажмите 1, если хотите завершить
     Нажмите 2, если хотите продолжить
     """;
+
+    final static String gameModeChoiceMessage = """
+            \nВыбирете режим игры против компьютера.
+            Нажмите 1, если хотите выбрать ЛЕГКИЙ режим
+            Нажмите 2, если хотите выбрать СЛОЖНЫЙ режим
+            """;
     final static String goBackForOneStepMessage = "\nХотите отменить ход? (введите 1, если да, 2 - нет)";
 
     public static String inputQuantityOfPlayers() {
@@ -77,11 +83,11 @@ public class InputInformation {
     }
 
 
-    public static boolean inputChipType() {
+    public static boolean inputChipTypeIsCircle() {
         String chipType;
         int mistakeCount = 5;
         Scanner in = new Scanner(System.in);
-        System.out.println(chipChoiceMessage);
+        System.out.println(gameModeChoice);
 
         while (true) {
             System.out.print("Ваш выбор: ");
@@ -150,5 +156,30 @@ public class InputInformation {
             }
         }
         return shouldGoBack.equals("1");
+    }
+
+    public static String inputGameModeVersusComputer() {
+        String gameModeChoice;
+        int mistakeCount = 5;
+        Scanner in = new Scanner(System.in);
+        System.out.println(gameModeChoiceMessage);
+
+        while (true) {
+            System.out.print("Ваш выбор: ");
+            gameModeChoice = in.nextLine();
+
+            if (gameModeChoice.equals("1") || gameModeChoice.equals("2")) {
+                break;
+            } else {
+                mistakeCount -= 1;
+                if (mistakeCount == 0) {
+                    gameModeChoice = "1";
+                    System.out.println(String.format(forcedChoiceMessage, "ЛЕГКИЙ игровой режим"));
+                    break;
+                }
+                System.out.println(String.format(mistakeInInputMessage, "цифру для режима игры", mistakeCount));
+            }
+        }
+        return gameModeChoice;
     }
 }

@@ -18,7 +18,7 @@ public class LockedCells {
         // замыкание клеток сверху над данной
         while (y > 0) {
             y -= 1;
-            Cell cellAbove = boardCells[x][y];
+            Cell cellAbove = boardCells[y][x];
             if (cellAbove.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -36,14 +36,14 @@ public class LockedCells {
         // замыкание клеток снизу над данной
         while (y < 7) {
             y += 1;
-            Cell cellBellow = boardCells[x][y];
+            Cell cellBellow = boardCells[y][x];
             if (cellBellow.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
                 }
                 break;
             } else if (cellBellow.getChip().getType() != ChipTypes.Empty) {
-                probablyLockedCells.add(cell);
+                probablyLockedCells.add(cellBellow);
             } else {
                 break;
             }
@@ -54,7 +54,7 @@ public class LockedCells {
         // замыкание клеток слева от данной
         while (x > 0) {
             x -= 1;
-            Cell cellLeft = boardCells[x][y];
+            Cell cellLeft = boardCells[y][x];
             if (cellLeft.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -72,7 +72,7 @@ public class LockedCells {
         // замыкание клеток справа от данной
         while (x < 7) {
             x += 1;
-            Cell cellRight = boardCells[x][y];
+            Cell cellRight = boardCells[y][x];
             if (cellRight.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -92,7 +92,7 @@ public class LockedCells {
         while (y > 0 && x > 0) {
             x -= 1;
             y -= 1;
-            Cell cellAboveLeft = boardCells[x][y];
+            Cell cellAboveLeft = boardCells[y][x];
             if (cellAboveLeft.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -113,7 +113,7 @@ public class LockedCells {
         while (y > 0 && x < 7) {
             y -= 1;
             x += 1;
-            Cell cellAboveRight = boardCells[x][y];
+            Cell cellAboveRight = boardCells[y][x];
             if (cellAboveRight.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -133,7 +133,7 @@ public class LockedCells {
         while (x > 0 && y < 7) {
             x -= 1;
             y += 1;
-            Cell cellBellowLeft = boardCells[x][y];
+            Cell cellBellowLeft = boardCells[y][x];
             if (cellBellowLeft.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -153,7 +153,7 @@ public class LockedCells {
         while (x < 7 && y < 7) {
             x += 1;
             y += 1;
-            Cell cellBellowRight = boardCells[x][y];
+            Cell cellBellowRight = boardCells[y][x];
             if (cellBellowRight.getChip().getType() == chipType) {
                 for (Cell lockedCell : probablyLockedCells) {
                     lockedCells.add(lockedCell);
@@ -165,7 +165,6 @@ public class LockedCells {
                 break;
             }
         }
-
 
         return lockedCells;
     }

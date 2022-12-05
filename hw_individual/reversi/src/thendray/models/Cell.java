@@ -22,13 +22,13 @@ public class Cell {
         return chip;
     }
 
-    public Cell(int x, int y) {
+    public Cell(int y, int x) {
         X = x;
         Y = y;
         chip = new EmptyChip();
     }
 
-    public Cell(int x, int y, boolean isCircleChip) {
+    public Cell(int y, int x, boolean isCircleChip) {
         X = x;
         Y = y;
         if (isCircleChip) {
