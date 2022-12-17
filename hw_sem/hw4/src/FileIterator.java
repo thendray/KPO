@@ -19,10 +19,8 @@ class FileIterator implements Iterator<String> {
         } else {
             bufferReader = new BufferedReader(new FileReader(file));
         }
-        try {
+        try (bufferReader) {
             nextLine = bufferReader.readLine();
-        } catch (RuntimeException ex) {
-            bufferReader.close();
         }
     }
 
@@ -43,14 +41,9 @@ class FileIterator implements Iterator<String> {
     public String next() {
         String next_line = this.nextLine;
 
-        try {
+        try (bufferReader) {
             this.nextLine = bufferReader.readLine();
         } catch (IOException e) {
-            try {
-                bufferReader.close();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
             throw new RuntimeException(e);
         }
 
