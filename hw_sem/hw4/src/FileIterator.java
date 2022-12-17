@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.Iterator;
 
 class FileIterator implements Iterator<String> {
-    private String next_line;
-    private final BufferedReader BUFFER_READER;
+    private String nextLine;
+    private final BufferedReader bufferReader;
 
     /**
      * Create a buffer reader if all good with path to file, else throw FileNotFoundException
@@ -17,9 +17,13 @@ class FileIterator implements Iterator<String> {
         if (!file.exists() || file.isDirectory()) {
             throw new FileNotFoundException("no such file");
         } else {
-            BUFFER_READER = new BufferedReader(new FileReader(file));
+            bufferReader = new BufferedReader(new FileReader(file));
         }
-        next_line = BUFFER_READER.readLine();
+        try {
+            nextLine = bufferReader.readLine();
+        } catch (RuntimeException ex) {
+            bufferReader.close();
+        }
     }
 
     /**
@@ -28,7 +32,7 @@ class FileIterator implements Iterator<String> {
      */
     @Override
     public boolean hasNext() {
-        return next_line != null;
+        return nextLine != null;
     }
 
     /**
@@ -37,11 +41,16 @@ class FileIterator implements Iterator<String> {
      */
     @Override
     public String next() {
-        String next_line = this.next_line;
+        String next_line = this.nextLine;
 
         try {
-            this.next_line = BUFFER_READER.readLine();
+            this.nextLine = bufferReader.readLine();
         } catch (IOException e) {
+            try {
+                bufferReader.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
 
