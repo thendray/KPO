@@ -27,7 +27,12 @@ public class Main {
                 System.out.println(fileIterator.next());
             }
         } catch (NullPointerException exception) {
-            System.out.println("OOPs!");
+
+            try {
+                fileIterator.close();
+            } catch (IOException ex) {
+                throw new RuntimeException();
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Iterator;
 
-class FileIterator implements Iterator<String> {
+class FileIterator implements Iterator<String>, AutoCloseable {
     private String nextLine;
     private final BufferedReader bufferReader;
 
@@ -19,9 +19,8 @@ class FileIterator implements Iterator<String> {
         } else {
             bufferReader = new BufferedReader(new FileReader(file));
         }
-        try (bufferReader) {
-            nextLine = bufferReader.readLine();
-        }
+
+        this.nextLine = bufferReader.readLine();
     }
 
     /**
@@ -39,14 +38,18 @@ class FileIterator implements Iterator<String> {
      */
     @Override
     public String next() {
-        String next_line = this.nextLine;
+        String nextLine = this.nextLine;
 
-        try (bufferReader) {
+        try {
             this.nextLine = bufferReader.readLine();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
 
-        return next_line;
+        return nextLine;
+    }
+
+    public void close() throws IOException {
+        bufferReader.close();
     }
 }
