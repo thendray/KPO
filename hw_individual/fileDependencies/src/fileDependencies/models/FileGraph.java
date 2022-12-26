@@ -20,9 +20,30 @@ public class FileGraph {
         fileTable.get(mainFilePath).add(dependentFilePath);
     }
 
+    public void add(String mainFilePath, List<String> requires) {
+        if (!fileTable.containsKey(mainFilePath)) {
+            fileTable.put(mainFilePath, requires);
+        } else {
+            fileTable.get(mainFilePath).addAll(requires);
+        }
+    }
+
 
     public List<String> getByKey(String key) {
         return fileTable.get(key);
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (String key : fileTable.keySet()) {
+            result += key + ": ";
+            for (String require : fileTable.get(key)) {
+                result += require + "  ";
+            }
+            result += "\n";
+        }
+        return result;
     }
 
 }

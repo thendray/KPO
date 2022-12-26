@@ -7,7 +7,5 @@ public class Main {
         ProcessSession session = new ProcessSession();
 
         session.start();
-
-
     }
 }

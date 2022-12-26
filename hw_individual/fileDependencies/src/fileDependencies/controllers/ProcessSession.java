@@ -33,7 +33,13 @@ public class ProcessSession {
             return;
         }
 
-        // do()
+        Process process = new Process(rootPath);
+        try {
+            process.processStart();
+            System.out.println("000000000oOOOOOOOO");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 

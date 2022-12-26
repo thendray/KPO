@@ -25,6 +25,16 @@ public class FileIterator implements AutoCloseable {
     }
 
     /**
+     * Constructor who create a buffer reader by getting file
+     * @param file - File which is needed to read
+     * @throws IOException - if smth goes wrong with readLine from buffer
+     */
+    public FileIterator(File file) throws IOException {
+        bufferReader = new BufferedReader(new FileReader(file));
+        this.nextLine = bufferReader.readLine();
+    }
+
+    /**
      * Check has the buffer one more line
      * @return true if buffer has new line, else return false
      */
