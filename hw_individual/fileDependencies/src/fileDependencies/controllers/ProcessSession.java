@@ -1,5 +1,8 @@
 package fileDependencies.controllers;
 
+import java.io.File;
+import java.io.IOException;
+
 import static fileDependencies.tools.InputInformation.inputRootFolderPath;
 
 public class ProcessSession {
@@ -27,11 +30,11 @@ public class ProcessSession {
             System.out.println("УВЫ! Кажется мы не поняли друг-друга.");
             System.out.println(exception.getMessage());
             System.out.println("--------------------------------------");
+            return;
         }
 
         // do()
 
-        end();
     }
 
     public void end() {

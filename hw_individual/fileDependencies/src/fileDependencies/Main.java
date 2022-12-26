@@ -1,7 +1,13 @@
 package fileDependencies;
 
+import fileDependencies.controllers.ProcessSession;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        ProcessSession session = new ProcessSession();
+
+        session.start();
+
+
     }
 }
