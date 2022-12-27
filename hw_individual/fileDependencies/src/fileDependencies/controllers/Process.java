@@ -2,6 +2,7 @@ package fileDependencies.controllers;
 
 import fileDependencies.models.FileGraph;
 import fileDependencies.tools.FileIterator;
+import fileDependencies.tools.SplitterAndJoiner;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +11,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static fileDependencies.tools.TopologicalSort.topologicalSort;
+
 public class Process {
 
     private final String rootPath;
-    private FileGraph graph;
-    private List<File> files;
+    private final FileGraph graph;
+    private final List<File> files;
 
     public Process(String path) {
         rootPath = path;
@@ -26,13 +29,13 @@ public class Process {
 
         getFilesFromFolder(rootPath);
 
-        for (File f : files) {
-            System.out.println(f.getName());
-        }
-
         readFilesAndFindDependencies();
 
-        System.out.println(graph.toString());
+        System.out.println(graph);
+
+        List<String> filesInOrder = topologicalSort(graph);
+
+        System.out.println(filesInOrder);
 
     }
 
@@ -48,10 +51,14 @@ public class Process {
                     currentLine = fileIterator.next();
                     requires = getRequires(currentLine);
 
-                    System.out.println(requires.size() + "=======" + currentLine);
-
                     if (!requires.isEmpty()) {
                         graph.add(currentFile.getPath(), requires);
+
+                        for (String require : requires) {
+                            if (!graph.isExist(require)) {
+                                graph.add(require, new ArrayList<>());
+                            }
+                        }
                     }
                 }
             }
@@ -59,14 +66,20 @@ public class Process {
     }
 
     private List<String> getRequires(String currentLine) {
-        String patternString = "require '.+'";
+        String patternString = "(?<=require ').*(?=')";
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(currentLine);
 
         List<String> requires = new ArrayList<>();
+        String matchString;
+        SplitterAndJoiner splitterAndJoiner;
 
         while (matcher.find()) {
-            requires.add(currentLine.substring(matcher.start(), matcher.end()));
+            matchString = currentLine.substring(matcher.start(), matcher.end());
+            splitterAndJoiner = new SplitterAndJoiner(matchString);
+            matchString = splitterAndJoiner.splitAndJoin("\\*", File.separator);
+
+            requires.add(String.format("%s%s%s",rootPath, File.separator, matchString));
         }
 
         return requires;

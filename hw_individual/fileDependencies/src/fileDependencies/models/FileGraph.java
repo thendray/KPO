@@ -1,14 +1,15 @@
 package fileDependencies.models;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FileGraph {
 
-    Map<String, List<String>> fileTable = new HashMap<>();
+    private final Map<String, List<String>> fileTable;
+
+    public FileGraph(){
+        fileTable = new HashMap<>();
+    }
 
 
     public void add(String mainFilePath, String dependentFilePath) {
@@ -28,22 +29,29 @@ public class FileGraph {
         }
     }
 
-
     public List<String> getByKey(String key) {
         return fileTable.get(key);
     }
 
+    public Set<String> getKeys() {
+        return fileTable.keySet();
+    }
+
+    public boolean isExist(String key) {
+        return fileTable.containsKey(key);
+    }
+
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (String key : fileTable.keySet()) {
-            result += key + ": ";
+            result.append(key).append(": ");
             for (String require : fileTable.get(key)) {
-                result += require + "  ";
+                result.append(require).append("  ");
             }
-            result += "\n";
+            result.append("\n");
         }
-        return result;
+        return result.toString();
     }
 
 }

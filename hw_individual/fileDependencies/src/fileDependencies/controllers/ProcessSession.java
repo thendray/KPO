@@ -36,8 +36,9 @@ public class ProcessSession {
         Process process = new Process(rootPath);
         try {
             process.processStart();
-            System.out.println("000000000oOOOOOOOO");
         } catch (IOException e) {
+
+            // bad - need to change
             System.out.println(e.getMessage());
         }
 
