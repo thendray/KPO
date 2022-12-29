@@ -1,7 +1,9 @@
 package fileDependencies.controllers;
 
-import java.io.File;
+import fileDependencies.models.CycleException;
+
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import static fileDependencies.tools.InputInformation.inputRootFolderPath;
 
@@ -14,6 +16,7 @@ public class ProcessSession {
             """;
 
     private static final String FAREWELL_MESSAGE = """
+            
             С вами было приятно работать!
             До новых встреч.
             """;
@@ -30,18 +33,36 @@ public class ProcessSession {
             System.out.println("УВЫ! Кажется мы не поняли друг-друга.");
             System.out.println(exception.getMessage());
             System.out.println("--------------------------------------");
+            end();
             return;
         }
 
         Process process = new Process(rootPath);
+
         try {
             process.processStart();
-        } catch (IOException e) {
-
-            // bad - need to change
-            System.out.println(e.getMessage());
+        } catch (CycleException exception) {
+            end();
+            return;
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+            end();
+            return;
+        } catch (UncheckedIOException exception) {
+            System.out.println("При работе с финальным файлом возникли проблемы!\nОзнакомьтесь:");
+            System.out.println(exception.getMessage());
+            end();
+            return;
+        } catch (IOException exception) {
+            System.out.println("\nОзнакомьтесь с ошибкой подробнее: ");
+            System.out.println(exception.getMessage());
+            end();
+            return;
         }
 
+        System.out.println("Ответ сформирован и записан в файл!");
+        System.out.println("Путь к файлу: " + process.getResultFilePath());
+        end();
     }
 
     public void end() {

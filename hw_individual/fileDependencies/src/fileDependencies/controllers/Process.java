@@ -1,16 +1,24 @@
 package fileDependencies.controllers;
 
+import fileDependencies.models.CycleException;
 import fileDependencies.models.FileGraph;
+import fileDependencies.tools.CreateNewFile;
 import fileDependencies.tools.FileIterator;
 import fileDependencies.tools.SplitterAndJoiner;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static fileDependencies.tools.CycleChecker.hasGraphCycle;
 import static fileDependencies.tools.TopologicalSort.topologicalSort;
 
 public class Process {
@@ -19,27 +27,72 @@ public class Process {
     private final FileGraph graph;
     private final List<File> files;
 
+    private String resultFilePath;
+
+    public String getResultFilePath() {
+        return resultFilePath;
+    }
+
     public Process(String path) {
         rootPath = path;
         graph = new FileGraph();
         files = new ArrayList<>();
     }
 
-    public void processStart() throws IOException {
+    private final static String WRONG_WITH_READING_MESSAGE = """
+            Возникли проблемы при чтении файла(ов)!
+            К сожалению работа программы на этом закончена.
+            Проверьте данные и попробуйте снова.
+            """;
+
+    private final static String WRONG_WITH_FILE_PATH_MESSAGE = """
+            Не существует файлов указанных в протоколе <require>!
+            Проверьте данные и запустите программу занаво!
+            Ниже представлены пути к файлам, которых не удалоь найти.
+            """;
+
+    public void processStart() throws IOException, CycleException {
 
         getFilesFromFolder(rootPath);
 
-        readFilesAndFindDependencies();
+        try {
+            readFilesAndFindDependencies();
+        } catch (IOException ioException) {
+            System.out.println(WRONG_WITH_READING_MESSAGE);
+            throw ioException;
+        } catch (IllegalArgumentException exception) {
+            System.out.println(WRONG_WITH_FILE_PATH_MESSAGE);
+            throw exception;
+        }
 
-        System.out.println(graph);
+        Map<String, Boolean> filesInCycle = hasGraphCycle(graph);
 
-        List<String> filesInOrder = topologicalSort(graph);
 
-        System.out.println(filesInOrder);
+        if (filesInCycle == null){
+            List<String> filesInOrder = topologicalSort(graph);
 
+            CreateNewFile creator = new CreateNewFile(filesInOrder);
+            try {
+                resultFilePath = rootPath + File.separator + "result.txt";
+                creator.createNewFile(resultFilePath);
+            } catch (IOException exception) {
+                throw new UncheckedIOException(exception);
+            }
+
+        } else {
+            System.out.println("\nПри работе с файлами обнаружен цикл!!!");
+            System.out.println("Ниже представлен перечень файлов, образующих цикл:");
+            for (String file : filesInCycle.keySet()) {
+                if (filesInCycle.get(file)){
+                    System.out.println(file);
+                }
+            }
+            throw new CycleException();
+        }
     }
 
-    private void readFilesAndFindDependencies() throws IOException {
+
+    private void readFilesAndFindDependencies() throws IOException, IllegalArgumentException {
         String currentLine;
         List<String> requires;
 
@@ -50,6 +103,17 @@ public class Process {
                 while (fileIterator.hasNext()) {
                     currentLine = fileIterator.next();
                     requires = getRequires(currentLine);
+
+                    List<String> filePathsWhichDoNotExist = filePathsCheck(requires);
+
+                    if (!filePathsWhichDoNotExist.isEmpty()) {
+                        StringBuilder filePaths = new StringBuilder();
+                        for (String filePath : filePathsWhichDoNotExist) {
+                            filePaths.append(filePath);
+                            filePaths.append("\n");
+                        }
+                        throw new IllegalArgumentException(filePaths.toString());
+                    }
 
                     if (!requires.isEmpty()) {
                         graph.add(currentFile.getPath(), requires);
@@ -63,6 +127,21 @@ public class Process {
                 }
             }
         }
+    }
+
+    private List<String> filePathsCheck(List<String> filePaths) {
+        List<String> wrongPaths = new ArrayList<>();
+
+        for (String filePath : filePaths) {
+
+            try {
+                Paths.get(filePath);
+            } catch (InvalidPathException exception) {
+                wrongPaths.add(filePath);
+            }
+        }
+
+        return wrongPaths;
     }
 
     private List<String> getRequires(String currentLine) {
