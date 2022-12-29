@@ -77,7 +77,7 @@ public class Process {
 
             NewFileCreator creator = new NewFileCreator(filesInOrder);
             try {
-                resultFilePath = rootPath + File.separator + "result.txt";
+                resultFilePath = "result.txt";
                 creator.createNewFile(resultFilePath);
             } catch (IOException exception) {
                 throw new UncheckedIOException(exception);

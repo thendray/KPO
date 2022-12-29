@@ -64,7 +64,7 @@ public class ProcessSession {
         }
 
         System.out.println("\nОтвет так же сформирован и записан в файл!");
-        System.out.println("Путь к файлу: " + process.getResultFilePath());
+        System.out.println("Название файла: " + process.getResultFilePath());
         end();
     }
 
