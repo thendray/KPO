@@ -17,6 +17,11 @@ public class CreateNewFile {
     }
 
 
+    /**
+     * create a new file and write some text in this file
+     * @param pathWhereCreate - path for creating file
+     * @throws IOException - throws if smth goes wrong with reading files and writing
+     */
     public void createNewFile(String pathWhereCreate) throws IOException {
 
         Path pathNewFile = Paths.get(pathWhereCreate);

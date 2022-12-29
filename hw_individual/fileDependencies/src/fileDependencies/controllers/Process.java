@@ -9,8 +9,6 @@ import fileDependencies.tools.SplitterAndJoiner;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +48,14 @@ public class Process {
             Ниже представлены пути к файлам, которых не удалоь найти.
             """;
 
-    public void processStart() throws IOException, CycleException {
+
+    /**
+     * carries out th whole process of program
+     * @throws IOException - throws if smth goes wrong with reading files
+     * @throws CycleException - throws if program finds a cycle in file`s dependencies
+     * @throws IllegalArgumentException - throws if smth goes wrong with filePaths in "require protocol"
+     */
+    public void processStart() throws IOException, CycleException, IllegalArgumentException {
 
         getFilesFromFolder(rootPath);
 
@@ -91,6 +96,11 @@ public class Process {
     }
 
 
+    /**
+     * read files and find the "require protocol" to make list of dependencies (crate graph)
+     * @throws IOException - throws if smth goes wrong with reading files
+     * @throws IllegalArgumentException - throws if file`s paths from files from @require protocol@ do not exist
+     */
     private void readFilesAndFindDependencies() throws IOException, IllegalArgumentException {
         String currentLine;
         List<String> requires;
@@ -128,14 +138,16 @@ public class Process {
         }
     }
 
+    /**
+     * checking if every file`s path from "require protocol" are exist
+     * @param filePaths - list with file`s paths
+     * @return - list with file`s paths which are not exist
+     */
     private List<String> filePathsCheck(List<String> filePaths) {
         List<String> wrongPaths = new ArrayList<>();
 
         for (String filePath : filePaths) {
-
-            try {
-                Paths.get(filePath);
-            } catch (InvalidPathException exception) {
+            if (!(new File(filePath).exists())) {
                 wrongPaths.add(filePath);
             }
         }
@@ -143,6 +155,11 @@ public class Process {
         return wrongPaths;
     }
 
+    /**
+     * get file`s path from files with "require protocol" from line. check if line matches the regex.
+     * @param currentLine - line for checking on "require"
+     * @return - list of file`s paths
+     */
     private List<String> getRequires(String currentLine) {
         String patternString = "(?<=require ').*(?=')";
         Pattern pattern = Pattern.compile(patternString);
@@ -164,6 +181,10 @@ public class Process {
     }
 
 
+    /**
+     * Get all files from start folder by recursive algorithm
+     * @param folderPath - start path where program should find files
+     */
     private void getFilesFromFolder(String folderPath) {
         File currentFolder = new File(folderPath);
 

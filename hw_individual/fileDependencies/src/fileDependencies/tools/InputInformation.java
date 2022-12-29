@@ -34,6 +34,11 @@ public class InputInformation {
             """;
 
 
+    /**
+     * input strting folder path. User has 5 tries to do it.
+     * @return - starting path
+     * @throws IllegalArgumentException - throws if starting path is not exist or is a file
+     */
     public static String inputRootFolderPath() throws IllegalArgumentException {
 
         System.out.println(EXPLANATION_FOR_PATH_INPUT);
@@ -62,7 +67,7 @@ public class InputInformation {
             }
 
             if (Files.exists(path)) {
-                System.out.println("Спасибо, данная деректива найдена!\nПриступаю к работе.");
+                System.out.println("Спасибо, данная деректива найдена!\nПриступаю к работе.\n");
                 break;
             } else {
                 ++mistakeCounter;

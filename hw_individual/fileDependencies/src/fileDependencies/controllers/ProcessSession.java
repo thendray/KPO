@@ -21,6 +21,9 @@ public class ProcessSession {
             До новых встреч.
             """;
 
+    /**
+     * start program session
+     */
     public void start() {
 
         System.out.println(GREETING_MESSAGE);
