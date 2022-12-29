@@ -1,4 +1,4 @@
-package fileDependencies.models;
+package filedependencies.models;
 
 public class CycleException extends Exception {
     public CycleException() { super(); }

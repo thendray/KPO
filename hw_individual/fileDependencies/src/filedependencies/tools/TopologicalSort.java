@@ -1,6 +1,6 @@
-package fileDependencies.tools;
+package filedependencies.tools;
 
-import fileDependencies.models.FileGraph;
+import filedependencies.models.FileGraph;
 
 import java.util.*;
 
@@ -26,6 +26,13 @@ public class TopologicalSort {
         return filePathInOrder;
     }
 
+    /**
+     * recursive algorithm for sorting graph with adjacency list
+     * @param graph - graph for sorting
+     * @param filePath - current vertex(file)
+     * @param visited - map with information about visit status of vertex(file)
+     * @param filePathInOrder - the result list
+     */
     private static void topologicalSortHelper(FileGraph graph, String filePath,
                                               Map<String, Boolean> visited, List<String> filePathInOrder) {
 

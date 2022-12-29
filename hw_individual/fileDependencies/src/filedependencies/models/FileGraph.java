@@ -1,4 +1,4 @@
-package fileDependencies.models;
+package filedependencies.models;
 
 import java.util.*;
 

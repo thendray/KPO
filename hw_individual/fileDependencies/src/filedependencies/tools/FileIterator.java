@@ -1,4 +1,4 @@
-package fileDependencies.tools;
+package filedependencies.tools;
 
 import java.io.*;
 

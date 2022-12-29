@@ -1,4 +1,4 @@
-package fileDependencies.tools;
+package filedependencies.tools;
 
 public class SplitterAndJoiner {
 

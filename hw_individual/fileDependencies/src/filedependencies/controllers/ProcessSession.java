@@ -1,11 +1,11 @@
-package fileDependencies.controllers;
+package filedependencies.controllers;
 
-import fileDependencies.models.CycleException;
+import filedependencies.models.CycleException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-import static fileDependencies.tools.InputInformation.inputRootFolderPath;
+import static filedependencies.tools.InputInformation.inputRootFolderPath;
 
 public class ProcessSession {
 
@@ -63,7 +63,7 @@ public class ProcessSession {
             return;
         }
 
-        System.out.println("Ответ сформирован и записан в файл!");
+        System.out.println("\nОтвет так же сформирован и записан в файл!");
         System.out.println("Путь к файлу: " + process.getResultFilePath());
         end();
     }

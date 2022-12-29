@@ -1,10 +1,10 @@
-package fileDependencies.controllers;
+package filedependencies.controllers;
 
-import fileDependencies.models.CycleException;
-import fileDependencies.models.FileGraph;
-import fileDependencies.tools.CreateNewFile;
-import fileDependencies.tools.FileIterator;
-import fileDependencies.tools.SplitterAndJoiner;
+import filedependencies.models.CycleException;
+import filedependencies.models.FileGraph;
+import filedependencies.tools.CreateNewFile;
+import filedependencies.tools.FileIterator;
+import filedependencies.tools.SplitterAndJoiner;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static fileDependencies.tools.CycleChecker.hasGraphCycle;
-import static fileDependencies.tools.TopologicalSort.topologicalSort;
+import static filedependencies.tools.CycleChecker.hasGraphCycle;
+import static filedependencies.tools.TopologicalSort.topologicalSort;
 
 public class Process {
 

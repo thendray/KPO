@@ -1,6 +1,6 @@
-package fileDependencies.tools;
+package filedependencies.tools;
 
-import fileDependencies.models.FileGraph;
+import filedependencies.models.FileGraph;
 
 import java.util.HashMap;
 import java.util.Map;

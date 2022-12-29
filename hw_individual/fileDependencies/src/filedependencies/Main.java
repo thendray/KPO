@@ -1,6 +1,6 @@
-package fileDependencies;
+package filedependencies;
 
-import fileDependencies.controllers.ProcessSession;
+import filedependencies.controllers.ProcessSession;
 
 public class Main {
     public static void main(String[] args) {
