@@ -23,7 +23,6 @@ public class TopologicalSort {
             }
         }
 
-//        Collections.reverse(filePathInOrder);
         return filePathInOrder;
     }
 

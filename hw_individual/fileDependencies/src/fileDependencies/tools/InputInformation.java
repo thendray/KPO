@@ -15,13 +15,15 @@ public class InputInformation {
             Для начала работы программы неоходимо ввести полный путь до начальной дерективы(папки).
             При достижении лимита на некорректный ввод программа завершится.
             Вводите каждую дерективу через *. Программа сама подставит сепараторы.
-            Пример: C:*Users*Andrey*Documents*test\n
+            Пример: C:*Users*Andrey*Documents*test
+            
             """;
 
     private static final String NOT_EXIST_INPUT_MESSAGE = """
             К сожалению, введеный путь некоректен - такой дерективы не существует!
             Попробуйте снова!
-            Осталось %d попыток из 5.\n
+            Осталось %d попыток из 5.
+            
             """;
 
     private static final String WRONG_PATH_INPUT_MESSAGE = """
