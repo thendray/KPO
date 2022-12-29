@@ -2,7 +2,7 @@ package filedependencies.controllers;
 
 import filedependencies.models.CycleException;
 import filedependencies.models.FileGraph;
-import filedependencies.tools.CreateNewFile;
+import filedependencies.tools.NewFileCreator;
 import filedependencies.tools.FileIterator;
 import filedependencies.tools.SplitterAndJoiner;
 
@@ -75,7 +75,7 @@ public class Process {
         if (filesInCycle == null){
             List<String> filesInOrder = topologicalSort(graph);
 
-            CreateNewFile creator = new CreateNewFile(filesInOrder);
+            NewFileCreator creator = new NewFileCreator(filesInOrder);
             try {
                 resultFilePath = rootPath + File.separator + "result.txt";
                 creator.createNewFile(resultFilePath);

@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateNewFile {
+public class NewFileCreator {
 
     private final List<String> filePathsToCombine;
 
-    public CreateNewFile(List<String> filePathsToCombine) {
+    public NewFileCreator(List<String> filePathsToCombine) {
         this.filePathsToCombine = new ArrayList<>(filePathsToCombine);
     }
 
