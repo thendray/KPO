@@ -66,19 +66,19 @@ public class LibraryVisitSession {
             Command command = manager.getCommand();
             String commandArgs = command.getArguments();
 
-            if (command.getCommandType() == CommandType.GET && !commandArgs.equals("")) {
+            if (command.getCommandType() == CommandType.GET) {
                 manager.getBook(commandArgs, currentUser);
 
-            } else if (command.getCommandType() == CommandType.PUT && !commandArgs.equals("")) {
+            } else if (command.getCommandType() == CommandType.PUT) {
                 manager.putBook(commandArgs, currentUser);
 
-            } else if (command.getCommandType() == CommandType.LIST && commandArgs.equals("")) {
+            } else if (command.getCommandType() == CommandType.LIST) {
                 manager.showTakenBooks(currentUser);
 
-            } else if (command.getCommandType() == CommandType.ALL && commandArgs.equals("")) {
+            } else if (command.getCommandType() == CommandType.ALL) {
                 manager.showAllBooksInLibrary();
 
-            } else if (command.getCommandType() == CommandType.EXIT && commandArgs.equals("")) {
+            } else if (command.getCommandType() == CommandType.EXIT) {
                 break;
             } else {
                 System.out.println("Команда нераспознана!");

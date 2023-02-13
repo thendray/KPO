@@ -69,27 +69,30 @@ public class LibraryManager {
                 commandArgument.delete(commandArgument.length() - 1, commandArgument.length());
             }
 
-            if (command.equals("/put")) {
-                return new Command(CommandType.PUT, commandArgument.toString());
-
-            } else if (command.equals("/exit")) {
-                return new Command(CommandType.EXIT, commandArgument.toString());
-
-            } else if (command.equals("/get")) {
-                return new Command(CommandType.GET, commandArgument.toString());
-
-            } else if (command.equals("/all")) {
-                return new Command(CommandType.ALL, commandArgument.toString());
-
-            } else if (command.equals("/list")) {
-                return new Command(CommandType.LIST, commandArgument.toString());
-
-            } else {
-                return new Command(CommandType.UNRECOGNIZED, commandArgument.toString());
-            }
+           return choseCommand(command, commandArgument.toString());
         }
     }
 
+    public Command choseCommand(String command, String commandArgument) {
+        if (command.equals("/put") && !commandArgument.equals("")) {
+            return new Command(CommandType.PUT, commandArgument);
+
+        } else if (command.equals("/exit") && commandArgument.equals("")) {
+            return new Command(CommandType.EXIT, commandArgument);
+
+        } else if (command.equals("/get") && !commandArgument.equals("")) {
+            return new Command(CommandType.GET, commandArgument);
+
+        } else if (command.equals("/all") && commandArgument.equals("")) {
+            return new Command(CommandType.ALL, commandArgument);
+
+        } else if (command.equals("/list") && commandArgument.equals("")) {
+            return new Command(CommandType.LIST, commandArgument);
+
+        } else {
+            return new Command(CommandType.UNRECOGNIZED, commandArgument);
+        }
+    }
 
     private static final String INFO_TEXT = """
             Регистрация пройдена! Ваш идентификатор читательского билета: %s
