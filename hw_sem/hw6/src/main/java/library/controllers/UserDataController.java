@@ -12,6 +12,10 @@ public class UserDataController {
     private final static String DATAFILE = "src" + File.separator + "main" + File.separator +
             "java" + File.separator + "library" + File.separator + "data" + File.separator + "users.json";
 
+    /**
+     * Getting user from data file - deserialization
+     * @return List of users from data
+     */
     @SuppressWarnings("unchecked")
     public static List<User> getUsersFromData() {
 

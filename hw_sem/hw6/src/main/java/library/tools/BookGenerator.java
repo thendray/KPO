@@ -24,6 +24,12 @@ public class BookGenerator {
     private static final int BOOK_TYPES = 3;
     private static final int MAX_QUANTITY_AUTHORS = 2;
 
+
+    /**
+     * Generate list of books in random form with preparing parts from file
+     * @return list of books
+     * @throws IOException if happens some problems with working woth file
+     */
     public static List<Book> getGeneratedBooks() throws IOException {
 
         BookFactory bookFactory = new BookFactory();

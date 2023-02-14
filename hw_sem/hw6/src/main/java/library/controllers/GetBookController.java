@@ -9,6 +9,12 @@ import java.util.Map;
 
 public class GetBookController {
 
+    /**
+     * Get book by name
+     * @param bookName - bookName with which find a book
+     * @param library - library where the books stored
+     * @return - list of books which matches the bookName
+     */
     public static List<Book> getBooksByName(String bookName, Library library) {
 
         Map<Book, Integer> books = library.getBookCollection();

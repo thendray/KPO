@@ -15,14 +15,27 @@ public class Book implements Serializable {
     private final String annotation;
 
 
+    /**
+     * Getting list of book authors
+     * @return list of authors
+     */
     public List<Author> getAuthors() {
         return authors;
     }
 
+    /**
+     * getting name of book
+     * @return book name
+     */
     public String getName() {
         return name;
     }
 
+
+    /**
+     * Getting book annotation
+     * @return book annotation
+     */
     public String getAnnotation() {
         return annotation;
     }
@@ -33,6 +46,11 @@ public class Book implements Serializable {
         this.annotation = annotation;
     }
 
+    /**
+     * Book equals if names are equals and annotations are equals and all authors are equal
+     * @param obj - object which comparing
+     * @return true or false - means equal or not
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

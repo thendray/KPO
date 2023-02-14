@@ -7,8 +7,13 @@ import java.util.Scanner;
 
 import static library.tools.BookListInText.getBookListInText;
 
-public class ChoiceFromList {
+public class ChoiceMaker {
 
+    /**
+     * Choosing book from t=list of books with same name
+     * @param booksWithSameName - list with books
+     * @return book which has been chosen
+     */
     public static Book choseBookSecondTry(List<Book> booksWithSameName) {
         String bookVariants = getBookListInText(booksWithSameName);
         System.out.println(bookVariants);

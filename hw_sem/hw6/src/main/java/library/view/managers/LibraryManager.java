@@ -12,12 +12,10 @@ import library.models.book.Book;
 import library.models.user.User;
 import library.tools.BookListInText;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static library.tools.forconsole.ChoiceFromList.choseBookSecondTry;
+import static library.tools.forconsole.ChoiceMaker.choseBookSecondTry;
 
 public class LibraryManager {
 

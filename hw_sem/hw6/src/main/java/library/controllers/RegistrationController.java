@@ -9,6 +9,12 @@ import java.util.List;
 
 public class RegistrationController {
 
+    /**
+     * Getting user: if user in data - getting from list, else create new user
+     * @param userAnswerStatus - status - is user in data or not
+     * @param users - data list with users
+     * @return user^ new or from data
+     */
     public static User getUser(String userAnswerStatus, List<User> users) {
         String[] answerParts = userAnswerStatus.split(" ");
         int length = answerParts.length;
@@ -36,6 +42,12 @@ public class RegistrationController {
 
     }
 
+    /**
+     * getting user by card identifier from list of users
+     * @param answerPart - card identifier
+     * @param libraryUsers - list with users
+     * @return User: if card identifier is not find return null
+     */
     private static User getUserByCardIdentifier(String answerPart, List<User> libraryUsers) {
 
         for (User user : libraryUsers) {

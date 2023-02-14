@@ -7,6 +7,12 @@ import java.util.List;
 
 public class PutBookController {
 
+    /**
+     * Put book back in library
+     * @param bookName - bookName which puts back in library
+     * @param userBooks - list of books which user took
+     * @return - list of matches the bookName
+     */
     public static List<Book> returnBookByName(String bookName, List<Book> userBooks) {
         List<Book> booksWithSameName = new ArrayList<>();
 

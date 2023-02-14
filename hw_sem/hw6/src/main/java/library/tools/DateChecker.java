@@ -6,6 +6,13 @@ public class DateChecker {
     private final static int current_year = LocalDate.now().getYear();
 
 
+    /**
+     * Check date on correct form and existing day
+     * @param day checking day
+     * @param month checking month
+     * @param year checking year
+     * @return true or false - is date correct or not
+     */
     public static boolean checkData(int day, int month, int year) {
 
         if (year < 0 || year > current_year) {

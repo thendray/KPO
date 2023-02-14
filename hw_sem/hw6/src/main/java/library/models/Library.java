@@ -16,10 +16,17 @@ public class Library {
 
     private final Map<Book, Integer> bookCollection = new HashMap<>();
 
+    /**
+     * Getting library collection of books
+     * @return Map with key - Book and value - quantity of this book
+     */
     public Map<Book, Integer> getBookCollection() {
         return bookCollection;
     }
 
+    /**
+     * Generate list of books and adding them in the library collection
+     */
     public void generateBooks() {
         Author mainAuthor = new Author("Александр", "Кучук");
         Book book = new ScientificBook("Дом, в котором...учат java", List.of(new Author[]{mainAuthor}), "Читать всем!");
@@ -45,6 +52,10 @@ public class Library {
         }
     }
 
+    /**
+     * Adding book in library collection
+     * @param book book for adding
+     */
     public void addBookToCollection(Book book) {
         if (bookCollection.containsKey(book)) {
             bookCollection.put(book, bookCollection.get(book) + 1);
@@ -53,6 +64,10 @@ public class Library {
         }
     }
 
+    /**
+     * Delete one copy of book from collection
+     * @param book book which took
+     */
     public void someoneTakesBook(Book book) {
         bookCollection.put(book, bookCollection.get(book) - 1);
     }

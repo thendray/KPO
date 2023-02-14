@@ -22,6 +22,11 @@ public class Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Command equals if commandType and arguments are equal
+     * @param obj object which comparing
+     * @return true or false - means equal or not
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

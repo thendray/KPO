@@ -7,6 +7,11 @@ import java.util.Map;
 
 public class BookListInText {
 
+    /**
+     * Form a pretty text from list of books
+     * @param booksList list of books
+     * @return string with text
+     */
     public static String getBookListInText(List<Book> booksList) {
         StringBuilder result = new StringBuilder();
         int index = 1;
@@ -23,6 +28,11 @@ public class BookListInText {
         return result.toString();
     }
 
+    /**
+     * Form a pretty text from list of books
+     * @param bookMap map of books and quantities
+     * @return string with text
+     */
     public static String getBookListInText(Map<Book, Integer> bookMap) {
         StringBuilder result = new StringBuilder();
         int index = 1;
