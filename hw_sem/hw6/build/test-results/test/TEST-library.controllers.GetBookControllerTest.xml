@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="library.controllers.GetBookControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-02-13T09:28:29" hostname="LAPTOP-I8VRMRU2" time="0.029">
+  <properties/>
+  <testcase name="Проверяем получение книги, если книги с таким названием нет в библиотеке. Ожидаем пустой список" classname="library.controllers.GetBookControllerTest" time="0.028"/>
+  <testcase name="Проверяем получение книги, если книга с таким названием есть в библиотеке в единичном варианте. Ожидаем список из одной книги" classname="library.controllers.GetBookControllerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

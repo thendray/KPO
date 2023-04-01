@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="library.models.book.BookTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-02-13T09:28:29" hostname="LAPTOP-I8VRMRU2" time="0.001">
+  <properties/>
+  <testcase name="Проверяем на равенство две книги. Ожидаем, что созданные книги будут не равны, так как у их авторов разные имена" classname="library.models.book.BookTest" time="0.001"/>
+  <testcase name="Проверяем на равенство две книги. Ожидаем, что созданные книги будут равны" classname="library.models.book.BookTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="library.view.managers.LibraryManagerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-02-13T09:28:29" hostname="LAPTOP-I8VRMRU2" time="0.006">
+  <properties/>
+  <testcase name="Проверяем, что если введена команда не требующая аргументов, без аргументов, то ожидаем эту команду" classname="library.view.managers.LibraryManagerTest" time="0.003"/>
+  <testcase name="Проверяем, что если введена команда требующая аргументов, c аргументами, то ожидаем эту команду" classname="library.view.managers.LibraryManagerTest" time="0.0"/>
+  <testcase name="Проверяем, что если введена команда требующая аргументов, без аргументов, то ожидаем нераспознанную команду" classname="library.view.managers.LibraryManagerTest" time="0.0"/>
+  <testcase name="Проверяем, что если введена команда не требующая аргументов, c аргументами, то ожидаем команду - нераспознано" classname="library.view.managers.LibraryManagerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

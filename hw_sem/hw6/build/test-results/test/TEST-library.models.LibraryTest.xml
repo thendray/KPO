@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="library.models.LibraryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-02-13T09:28:29" hostname="LAPTOP-I8VRMRU2" time="0.01">
+  <properties/>
+  <testcase name="Проверяем способность генерировать книги. Изначально сгенерированный список книг не может быть пустым!" classname="library.models.LibraryTest" time="0.007"/>
+  <testcase name="Проверяем, что книгу можно взять из библиотеки" classname="library.models.LibraryTest" time="0.001"/>
+  <testcase name="Проверяем добавление книги, которой раньше не было. Ожидаем, что создастся ключ со значением 1" classname="library.models.LibraryTest" time="0.001"/>
+  <testcase name="Проверяем, что если книга уже есть в коллекции, то ее счетчик количества увеличивается на один" classname="library.models.LibraryTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

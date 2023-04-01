@@ -1,0 +1,74 @@
+{
+   "countOfChefs":3,
+   "countOfVisitors":35,
+   "countOfSits":10,
+   "workHours":4,
+   "stock":{
+      "products":{
+         "Product[name=Water]":0,
+         "Product[name=Salt]":0,
+         "Product[name=Oil]":0,
+         "Product[name=Sauce BBQ]":0,
+         "Product[name=Egg]":0,
+         "Product[name=Paper]":0,
+         "Product[name=Cheese]":0,
+         "Product[name=Flour]":0,
+         "Product[name=Pepperoni]":0,
+         "Product[name=Meat]":0,
+         "Product[name=Tomato pasta]":0
+      }
+   },
+   "mainMenu":[
+      {
+         "name":"Pizza BBQ",
+         "ingredients":{
+            "Product[name=Water]":300,
+            "Product[name=Salt]":10,
+            "Product[name=Oil]":30,
+            "Product[name=Sauce BBQ]":100,
+            "Product[name=Egg]":3,
+            "Product[name=Paper]":10,
+            "Product[name=Cheese]":300,
+            "Product[name=Flour]":500,
+            "Product[name=Meat]":200
+         },
+         "price":1000,
+         "timeOfCooking":1200
+      },
+      {
+         "name":"Pizza Pepperoni",
+         "ingredients":{
+            "Product[name=Water]":300,
+            "Product[name=Salt]":10,
+            "Product[name=Oil]":30,
+            "Product[name=Egg]":3,
+            "Product[name=Paper]":10,
+            "Product[name=Cheese]":200,
+            "Product[name=Flour]":500,
+            "Product[name=Pepperoni]":200,
+            "Product[name=Tomato pasta]":100
+         },
+         "price":800,
+         "timeOfCooking":900
+      },
+      {
+         "name":"Elite Water",
+         "ingredients":{
+            "Product[name=Water]":500
+         },
+         "price":250,
+         "timeOfCooking":60
+      },
+      {
+         "name":"Elite Bread",
+         "ingredients":{
+            "Product[name=Water]":300,
+            "Product[name=Salt]":20,
+            "Product[name=Oil]":50,
+            "Product[name=Flour]":800
+         },
+         "price":333,
+         "timeOfCooking":600
+      }
+   ]
+}

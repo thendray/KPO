@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="library.controllers.RegistrationControllerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-02-13T09:28:29" hostname="LAPTOP-I8VRMRU2" time="0.005">
+  <properties/>
+  <testcase name="Проверяем, что если в ответ указан именно идентификатор и такой пользователя нет в списке, то кидается исключение" classname="library.controllers.RegistrationControllerTest" time="0.002"/>
+  <testcase name="Проверяем, что если в ответ указано что-то длиной ни один, ни два (то есть ни идентификатор, ни фамилия-имя), то кидается исключение" classname="library.controllers.RegistrationControllerTest" time="0.001"/>
+  <testcase name="Проверяем, что если в ответ указан именно идентификатор и такой пользователь реально есть в списке, то возвращаем его" classname="library.controllers.RegistrationControllerTest" time="0.001"/>
+  <testcase name="Проверяем, что если в ответ указаны имя и фамилия, то ожидаем нового пользователя с такими именами" classname="library.controllers.RegistrationControllerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
