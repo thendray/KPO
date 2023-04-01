@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Поток посетителей
+ */
 public class VisitorsStream {
     BlockingQueue<Order> ordersFromVisitors;
     BlockingQueue<Order> finishedOrders;
@@ -22,6 +25,10 @@ public class VisitorsStream {
         threads = new ArrayList<>();
     }
 
+    /**
+     * Создаются потоки клиентов. Клиенты начинают идти в ресторан
+     * @throws InterruptedException - кидает, если клиента не удается прервать
+     */
     public void start() throws InterruptedException {
         for (int i = 0; i < RestaurantData.getCountOfVisitors(); i++) {
             Thread thread = new Thread(new Visitor(String.valueOf(i + 1), orderNumber, ordersFromVisitors, finishedOrders));
@@ -32,6 +39,10 @@ public class VisitorsStream {
         }
     }
 
+    /**
+     * Клиенты завершают свою активную деятельность
+     * @throws InterruptedException - кидает, если клиенты не могут прерваться.
+     */
     public void finish() throws InterruptedException {
         for (var thread : threads) {
             thread.join();

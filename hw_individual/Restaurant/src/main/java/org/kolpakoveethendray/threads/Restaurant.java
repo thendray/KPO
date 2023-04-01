@@ -17,7 +17,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 
 
-
+/**
+ * Класс-ресторан, который следит с помощью семафора за потоком клиентов.
+ */
 public class Restaurant {
 
     static final boolean[] tables = new boolean[RestaurantData.getCountOfSits()];
@@ -26,6 +28,10 @@ public class Restaurant {
 
     private static int profit = 0;
 
+    /**
+     * Запускает работу ресторана.
+     * @throws InterruptedException - кидает, если ресторан не получается прервать
+     */
     public void start() throws InterruptedException {
         BlockingQueue<Order> ordersFromVisitors = new LinkedBlockingQueue<>();
         BlockingQueue<Order> ordersForCooking = new LinkedBlockingQueue<>();
@@ -33,15 +39,19 @@ public class Restaurant {
 
         Logger.restaurantOpenLog();
 
+        // Менеджер заходит на пост
         Thread managerThread = new Thread(new Manager(ordersFromVisitors, finishedOrders, ordersForCooking));
         managerThread.start();
 
+        // Кухня готова к работе
         ChefStream kitchen = new ChefStream(ordersForCooking, finishedOrders);
         kitchen.start();
 
+        // Пошли клиенты
         VisitorsStream visitorsStream = new VisitorsStream(ordersFromVisitors, finishedOrders);
         visitorsStream.start();
 
+        // Пока не время закрытия - работаем
         while (true) {
             if (System.currentTimeMillis() > Time.endTime) {
                 visitorsStream.finish();
@@ -60,10 +70,18 @@ public class Restaurant {
         }
     }
 
+    /**
+     * Получить прибыль
+     * @param money - сумма оставленная посетителем за заказ
+     */
     public static void addProfit(int money) {
         profit += money;
     }
 
+    /**
+     * Предоставления актуального меню, согласно наличию продуктов на складе
+     * @return - меню, блюдами, которые можно приготовить
+     */
     public static List<Dish> getActualMenu() {
         Map<Product, Integer> productsFromStock = RestaurantData.getStock().products();
 

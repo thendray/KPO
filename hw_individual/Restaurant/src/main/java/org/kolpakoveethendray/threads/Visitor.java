@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Поток - посетитель
+ */
 public class Visitor implements Runnable {
     private final String name;
     private final AtomicInteger orderNumber;
@@ -27,6 +30,11 @@ public class Visitor implements Runnable {
         return name;
     }
 
+    /**
+     * Сделать заказ
+     * @param actualMenu - меню, из которого можно выбрать блюда
+     * @return - заказ со списком выбранных блюд
+     */
     public Order makeOrder(List<Dish> actualMenu) {
         if (actualMenu.size() == 0) {
             Order order = new Order(orderNumber.get(), new ArrayList<>(), 0);
@@ -53,6 +61,9 @@ public class Visitor implements Runnable {
         return new Order(orderNumber.getAndIncrement(), dishes, price);
     }
 
+    /**
+     * Поток Клиент начинает работу и стучится в ресторан. Если есть свободные столики, то заходит, иначе ждет.
+     */
     @Override
     public void run() {
         try {
@@ -79,9 +90,13 @@ public class Visitor implements Runnable {
 
             Logger.visitorLookMenuLog(this);
 
+            // Смотрим в меню и выбираем блюда
             Thread.sleep(300);
 
+            // Делаем заказ
             Order order = makeOrder(Restaurant.getActualMenu());
+
+            // Если заказ отменен (по причине высокой занятости кухни), то уходим
             if (order.isCancelled()){
                 Logger.visitorLeaveLog(this);
                 synchronized (Restaurant.tables) {
@@ -95,6 +110,7 @@ public class Visitor implements Runnable {
 
             orders.put(order);
 
+            // Ждем пока приготовят (на раздаче появится заказ с нашим номером)
             while (!finishedOrders.contains(order)) {
                 continue;
             }
@@ -111,9 +127,10 @@ public class Visitor implements Runnable {
                 return;
             }
 
+            // Кушаем
             Thread.sleep(order.getTimeOfCooking() / 2);
 
-            // Pay and leave
+            // Рассчитываемся за заказ и уходим
             Logger.visitorPayLog(this, order);
             Restaurant.addProfit(order.getPrice());
 

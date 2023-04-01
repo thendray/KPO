@@ -2,13 +2,15 @@ package org.kolpakoveethendray.models;
 
 import java.util.List;
 
+/**
+ * Класс-модель заказа
+ */
 public class Order {
-    //TODO: сделать private
-    //TODO: javadoc
-    int orderNumber;
-    List<Dish> dishes;
-    int price;
-    boolean isCancelled;
+
+    private final int orderNumber;
+    private final List<Dish> dishes;
+    private final int price;
+    private boolean isCancelled;
 
     public boolean isCancelled() {
         return isCancelled;

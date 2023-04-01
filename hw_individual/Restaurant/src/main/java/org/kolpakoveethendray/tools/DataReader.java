@@ -6,13 +6,16 @@ import org.kolpakoveethendray.jsonModels.RestaurantDataModel;
 
 import java.io.IOException;
 
-//TODO: вынести objectMapper
-//TODO: в ресурсах должны быть константы (лучше на вход в аргументах путь к файлу)
 public class DataReader {
-    public void readRestaurantData() throws IOException {
-        var resourceStream = getClass().getClassLoader().getResourceAsStream("data/restaurant_data.txt");
 
-        ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public DataReader() {
+        objectMapper = new ObjectMapper();
+    }
+    public void readRestaurantData(String resourcePath) throws IOException {
+        var resourceStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
+
         RestaurantDataModel restaurantDataModel = objectMapper.readValue(resourceStream, RestaurantDataModel.class);
 
         RestaurantData.setCountOfChefs(restaurantDataModel.countOfChefs());

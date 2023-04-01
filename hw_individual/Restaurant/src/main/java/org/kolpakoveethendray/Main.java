@@ -10,7 +10,10 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         DataReader dataReader = new DataReader();
-        dataReader.readRestaurantData();
+
+        String resourcePath = args[0];
+
+        dataReader.readRestaurantData(resourcePath);
 
         Logger.setFile(new File("logs.txt"));
 

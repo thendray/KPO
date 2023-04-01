@@ -20,17 +20,23 @@ public class Chef implements Runnable {
         return name;
     }
 
+    /**
+     * Поток повара стартует. Повар выходит на работу и ждет пока у него появится заказ.
+     */
     @Override
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
+                // Принимает заказ
                 Order order = orders.take();
 
                 Logger.chefCookOrderLog(this, order);
 
+                // Готовит заказ
                 Thread.sleep(order.getTimeOfCooking());
 
                 Logger.chefFinishCookLog(this, order);
+                // Отправляет готовый заказ на раздачу
                 finishedOrders.put(order);
             }
         } catch (InterruptedException e) {

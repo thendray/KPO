@@ -18,6 +18,9 @@ public class Manager implements Runnable {
         this.toKitchen = toKitchen;
     }
 
+    /**
+     * Резервирует продукты на складе, чтобы у повара было из чего готовить
+     */
     private void reserveProductsForOrder(Order order) {
         for (var dish : order.getDishes()) {
             for (var product : dish.ingredients().keySet()) {
@@ -26,18 +29,24 @@ public class Manager implements Runnable {
         }
     }
 
+    /**
+     * Запускает поток-менеджер. Менеджер следит за продуктами, занятостью кухни и временем приготовления
+     */
     @Override
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
+                // Принимает заказ у посетителя
                 Order order = orders.take();
+
                 reserveProductsForOrder(order);
+
 
                 long total = order.getTimeOfCooking();
                 for (var ord : toKitchen) {
                     total += ord.getTimeOfCooking();
                 }
-
+                // Проверяет, что кухня успеет приготовить заказ
                 if (System.currentTimeMillis() + total / RestaurantData.getCountOfChefs() > Time.endTime) {
                     order.setIsCancelled(true);
                     Logger.managerRejectOrderLog(order);
@@ -46,6 +55,7 @@ public class Manager implements Runnable {
                 }
 
                 Logger.managerTakeOrderLog(order, total / 60 / RestaurantData.getCountOfChefs());
+                // Отправляет заказ на кухню
                 toKitchen.put(order);
             }
         } catch (InterruptedException e) {

@@ -6,6 +6,9 @@ import org.kolpakoveethendray.models.Stock;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Класс-модель конфигурации ресторана - содержит необходимые данные для работы ресторана
+ */
 public class RestaurantData implements Serializable {
     private static int countOfChefs;
     private static int countOfVisitors;
