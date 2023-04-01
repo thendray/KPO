@@ -13,10 +13,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Поток посетителей
  */
 public class VisitorsStream {
-    BlockingQueue<Order> ordersFromVisitors;
-    BlockingQueue<Order> finishedOrders;
-    AtomicInteger orderNumber;
-    final List<Thread> threads;
+    private final BlockingQueue<Order> ordersFromVisitors;
+    private final BlockingQueue<Order> finishedOrders;
+    private final AtomicInteger orderNumber;
+    private final List<Thread> threads;
 
     public VisitorsStream(BlockingQueue<Order> ordersFromVisitors, BlockingQueue<Order> finishedOrders) {
         this.ordersFromVisitors = ordersFromVisitors;

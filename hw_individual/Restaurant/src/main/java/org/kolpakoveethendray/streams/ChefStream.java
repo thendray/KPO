@@ -12,10 +12,10 @@ import java.util.concurrent.BlockingQueue;
  * Класс-поток поваров
  */
 public class ChefStream {
-    BlockingQueue<Order> ordersForCooking;
-    BlockingQueue<Order> finishedOrders;
+    private final BlockingQueue<Order> ordersForCooking;
+    private final BlockingQueue<Order> finishedOrders;
 
-    List<Thread> chefThreads;
+    private final List<Thread> chefThreads;
 
     public ChefStream(BlockingQueue<Order> ordersForCooking, BlockingQueue<Order> finishedOrders) {
         this.ordersForCooking = ordersForCooking;
