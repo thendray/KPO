@@ -5,12 +5,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.thendray.authorizationapi.dto.SignInResponseDto;
 import ru.thendray.authorizationapi.dto.SignUpResponseDto;
+import ru.thendray.authorizationapi.dto.UserResponseDto;
 import ru.thendray.authorizationapi.entities.UserEntity;
 import ru.thendray.authorizationapi.entities.enums.UserRole;
 import ru.thendray.authorizationapi.exceptions.BadRequestException;
+import ru.thendray.authorizationapi.jwt.JwtExtractService;
 import ru.thendray.authorizationapi.jwt.JwtProvider;
 import ru.thendray.authorizationapi.repositories.UserRepository;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Component
@@ -18,19 +22,35 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
+    private final JwtExtractService extractService;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, JwtProvider provider, PasswordEncoder passwordEncoder) {
+    public UserService(
+            UserRepository userRepository,
+            JwtProvider provider,
+            PasswordEncoder passwordEncoder,
+            JwtExtractService jwtExtractService) {
         this.userRepository = userRepository;
         this.jwtProvider = provider;
         this.passwordEncoder = passwordEncoder;
+        this.extractService = jwtExtractService;
     }
 
+    public final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
+    }
 
     public SignUpResponseDto SignUpNewUser(String email, String name, String password) {
 
-        // TODO check email on correct input
+        if (!validate(email)) {
+            throw new BadRequestException("Email is incorrect!");
+        }
+
         UserEntity user = new UserEntity();
         user.setEmail(email);
         user.setUsername(name);
@@ -44,11 +64,11 @@ public class UserService {
 
         var token = jwtProvider.generateJwt(user);
 
-        return new SignUpResponseDto(user.getEmail(), user.getUsername(), token);
+        return new SignUpResponseDto(user.getEmail(), user.getUsername(), token, user.getRole());
 
     }
 
-    public SignInResponseDto SignInUser(String email, String password) {
+    public SignInResponseDto LogInUser(String email, String password) {
 
         var user = userRepository.findUserEntityByEmail(email);
 
@@ -71,5 +91,23 @@ public class UserService {
 
         return response;
 
+    }
+
+    public UserResponseDto getUserInfo(String token) {
+
+        var email = extractService.extractEmail(token);
+        var user = userRepository.findUserEntityByEmail(email);
+
+        if (user.isEmpty()) {
+            throw new BadRequestException("Wrong token!");
+        }
+
+        var userDto = new UserResponseDto();
+        userDto.setId(user.get().getId());
+        userDto.setUsername(user.get().getUsername());
+        userDto.setRole(user.get().getRole());
+        userDto.setEmail(email);
+
+        return userDto;
     }
 }

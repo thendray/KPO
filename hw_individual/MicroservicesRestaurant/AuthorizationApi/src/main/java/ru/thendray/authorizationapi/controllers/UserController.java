@@ -3,10 +3,7 @@ package ru.thendray.authorizationapi.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.thendray.authorizationapi.dto.SignInRequestDto;
-import ru.thendray.authorizationapi.dto.SignInResponseDto;
-import ru.thendray.authorizationapi.dto.SignUpRequestDto;
-import ru.thendray.authorizationapi.dto.SignUpResponseDto;
+import ru.thendray.authorizationapi.dto.*;
 
 import ru.thendray.authorizationapi.entities.UserEntity;
 import ru.thendray.authorizationapi.exceptions.BadRequestException;
@@ -28,10 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/sign_up")
-    public ResponseEntity<SignUpResponseDto> Registration(
+    public ResponseEntity<SignUpResponseDto> registration(
             @RequestBody SignUpRequestDto request) {
-
-        // TODO добавить провреку на валидность
 
         var response = userService.SignUpNewUser(
                 request.getEmail(), request.getUserName(), request.getPassword());
@@ -41,13 +36,21 @@ public class UserController {
     }
 
     @PostMapping("/log_in")
-    public ResponseEntity<SignInResponseDto> Authorization(
+    public ResponseEntity<SignInResponseDto> authorization(
             @RequestBody SignInRequestDto request) {
 
         var email = request.getEmail();
         var password = request.getPassword();
 
-        var response = userService.SignInUser(email, password);
+        var response = userService.LogInUser(email, password);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get_info")
+    public ResponseEntity<UserResponseDto> getInfo(@RequestHeader("Authorization") String token) {
+
+        UserResponseDto response = userService.getUserInfo(token);
 
         return ResponseEntity.ok(response);
 

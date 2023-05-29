@@ -7,6 +7,8 @@ import ru.thendray.restaurantapi.dto.MakeOrderResponseDto;
 import ru.thendray.restaurantapi.dto.OrderResponseDto;
 import ru.thendray.restaurantapi.entities.OrderDishEntity;
 import ru.thendray.restaurantapi.entities.OrderEntity;
+import ru.thendray.restaurantapi.events.OrderEvent;
+import ru.thendray.restaurantapi.events.OrderEventHandler;
 import ru.thendray.restaurantapi.exceptions.BadRequestException;
 import ru.thendray.restaurantapi.exceptions.NotFoundException;
 import ru.thendray.restaurantapi.jwt.JwtExtractService;
@@ -23,6 +25,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final DishRepository dishRepository;
+    private final OrderEventHandler orderListener;
 
     private final OrderDishRepository orderDishRepository;
 
@@ -31,11 +34,13 @@ public class OrderService {
             UserRepository userRepository,
             OrderRepository orderRepository,
             DishRepository dishRepository,
+            OrderEventHandler orderListener,
             OrderDishRepository orderDishRepository) {
         this.jwtExtractService = jwtExtractService;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.dishRepository = dishRepository;
+        this.orderListener = orderListener;
         this.orderDishRepository = orderDishRepository;
     }
 
@@ -54,10 +59,6 @@ public class OrderService {
         var userId = jwtExtractService.extractId(header);
 
         var user = userRepository.getUserEntityById(userId);
-
-//        user.orElseThrow(() -> {
-//            throw new ForbiddenException("Forbidden in authentication!");
-//        });
 
         checkValidDishesFromRequest(request);
 
@@ -112,6 +113,16 @@ public class OrderService {
 
             orderDishRepository.saveAndFlush(orderDish);
         }
+
+        final Long orderId = order.getId();
+        Thread eventThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OrderEvent event = new OrderEvent(this, orderId);
+                orderListener.handleEvent(event);
+            }
+        });
+        eventThread.start();
 
         return new MakeOrderResponseDto(totalPrice);
     }
