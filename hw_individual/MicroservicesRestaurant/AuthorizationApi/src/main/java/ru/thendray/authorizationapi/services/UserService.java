@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.thendray.authorizationapi.dto.SignInResponseDto;
+import ru.thendray.authorizationapi.dto.SignUpRequestDto;
 import ru.thendray.authorizationapi.dto.SignUpResponseDto;
 import ru.thendray.authorizationapi.dto.UserResponseDto;
 import ru.thendray.authorizationapi.entities.UserEntity;
@@ -45,7 +46,9 @@ public class UserService {
         return matcher.matches();
     }
 
-    public SignUpResponseDto SignUpNewUser(String email, String name, String password) {
+    public SignUpResponseDto SignUpNewUser(SignUpRequestDto request) {
+
+        var email = request.getEmail();
 
         if (!validate(email)) {
             throw new BadRequestException("Email is incorrect!");
@@ -53,9 +56,9 @@ public class UserService {
 
         UserEntity user = new UserEntity();
         user.setEmail(email);
-        user.setUsername(name);
-        user.setPasswordHash(passwordEncoder.encode(password));
-        user.setRole(UserRole.CLIENT);
+        user.setUsername(request.getUserName());
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setRole(request.getUserRole());
         try {
             user = userRepository.saveAndFlush(user);
         } catch (Exception exception) {
@@ -94,6 +97,8 @@ public class UserService {
     }
 
     public UserResponseDto getUserInfo(String token) {
+
+        token = token.substring(7);
 
         var email = extractService.extractEmail(token);
         var user = userRepository.findUserEntityByEmail(email);

@@ -142,13 +142,13 @@ public class DishService {
 
         if (request.getQuantity() != null && request.getQuantity() >= 0) {
             dishForUpdating.get().setQuantity(request.getQuantity());
-        } else if (request.getQuantity() < 0 ) {
+        } else if (request.getQuantity() != null && request.getQuantity() < 0 ) {
             throw new BadRequestException("Quantity can not be below zero!");
         }
 
         if (request.getPrice() != null && request.getPrice() >= 0) {
             dishForUpdating.get().setPrice(request.getPrice());
-        } else if (request.getPrice() < 0) {
+        } else if (request.getPrice() != null && request.getPrice() < 0) {
             throw new BadRequestException("Price can not be below zero!");
         }
 

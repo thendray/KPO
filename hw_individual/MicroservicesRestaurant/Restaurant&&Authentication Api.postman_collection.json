@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "4a5623fe-7d6d-4833-b06b-97b632d6f8fd",
+		"name": "Restaurant&&Authentication Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27040761",
+		"_collection_link": "https://speeding-meteor-488314.postman.co/workspace/Team-Workspace~74f076a2-f807-40c5-8c5c-5da51be9ff93/collection/27040761-4a5623fe-7d6d-4833-b06b-97b632d6f8fd?action=share&creator=27040761&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"myemail@kpo.ru\",\r\n  \"user_name\": \"thendray\",\r\n  \"password\": \"pochemu_tak_slodjno\",\r\n  \"user_role\": \"MANAGER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/user/sign_up",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"user",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"myemail@kpo.ru\",\r\n    \"password\":  \"pochemu_tak_slodjno\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/user/log_in",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"user",
+						"log_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/auth/user/get_info",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"user",
+						"get_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakeOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"dishes\": [\r\n      {\r\n          \"dish_id\": 1,\r\n          \"quantity\": 1\r\n      }\r\n  ],\r\n  \"special_requirements\": \"medium rare\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/restaurant/order/make_order",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"order",
+						"make_order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/restaurant/order/get_order/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"order",
+						"get_order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Manager] AddDish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"pizza\",\r\n    \"price\": 200,\r\n    \"description\": \"pizza with cheese\",\r\n    \"quantity\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/restaurant/dish/add_dish",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"dish",
+						"add_dish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Manager] DeleteDish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/restaurant/dish/delete_dish/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"dish",
+						"delete_dish",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Manager] UpdateDish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"pizza with four chezze\",\r\n    \"price\": 250\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/restaurant/dish/update_dish/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"dish",
+						"update_dish",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Manager] GetDish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/restaurant/dish/get_dish/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"dish",
+						"get_dish",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMenu",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJteWVtYWlsQGtwby5ydSIsImlhdCI6MTY4NTMyNjU5MSwiZXhwIjoxNjg1NDI2NTkxfQ.pbIJWSlKimA0QZ-_inHcoWvdLoAhjoR28DM-zEOQ9jc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/restaurant/dish/get_menu",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"restaurant",
+						"dish",
+						"get_menu"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

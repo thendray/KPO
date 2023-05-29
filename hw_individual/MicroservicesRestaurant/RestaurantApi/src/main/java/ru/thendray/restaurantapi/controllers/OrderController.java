@@ -32,7 +32,7 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/get_order/{id}")
+    @GetMapping("/get_order/{id}")
     public ResponseEntity<OrderResponseDto> getOrder(
             @PathVariable("id") Long orderId) {
 

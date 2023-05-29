@@ -21,8 +21,7 @@ public class UserController {
     public ResponseEntity<SignUpResponseDto> registration(
             @RequestBody SignUpRequestDto request) {
 
-        var response = userService.SignUpNewUser(
-                request.getEmail(), request.getUserName(), request.getPassword());
+        var response = userService.SignUpNewUser(request);
 
         return ResponseEntity.ok(response);
 
