@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.thendray.restaurantapi.exceptions.BadRequestException;
 import ru.thendray.restaurantapi.jwt.JwtExtractService;
 import ru.thendray.restaurantapi.jwt.JwtValidator;
 import ru.thendray.restaurantapi.services.UserService;

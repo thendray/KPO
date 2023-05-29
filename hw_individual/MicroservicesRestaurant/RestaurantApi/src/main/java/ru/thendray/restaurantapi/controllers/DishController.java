@@ -2,7 +2,6 @@ package ru.thendray.restaurantapi.controllers;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.thendray.restaurantapi.dto.AddDishRequestDto;

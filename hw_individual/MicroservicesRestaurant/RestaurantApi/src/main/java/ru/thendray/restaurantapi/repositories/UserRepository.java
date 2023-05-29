@@ -1,7 +1,6 @@
 package ru.thendray.restaurantapi.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import ru.thendray.restaurantapi.entities.UserEntity;
 
@@ -13,8 +12,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> getUserEntityById(Long id);
 
     Optional<UserEntity> findUserEntityByEmail(String email);
-
-//    User findUserEntityByEmail(String email);
 
 
 }

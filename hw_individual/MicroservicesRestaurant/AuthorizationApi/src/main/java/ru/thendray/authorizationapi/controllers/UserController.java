@@ -1,17 +1,10 @@
 package ru.thendray.authorizationapi.controllers;
-
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.thendray.authorizationapi.dto.*;
 
-import ru.thendray.authorizationapi.entities.UserEntity;
-import ru.thendray.authorizationapi.exceptions.BadRequestException;
-import ru.thendray.authorizationapi.jwt.JwtProvider;
 import ru.thendray.authorizationapi.services.UserService;
 
-import java.time.Instant;
-import java.util.Date;
 
 
 @RestController

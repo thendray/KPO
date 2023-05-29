@@ -1,6 +1,5 @@
 package ru.thendray.authorizationapi.exceptions;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;

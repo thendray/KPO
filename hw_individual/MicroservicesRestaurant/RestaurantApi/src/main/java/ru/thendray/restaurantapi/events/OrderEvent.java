@@ -3,7 +3,7 @@ package ru.thendray.restaurantapi.events;
 import java.util.EventObject;
 
 public class OrderEvent extends EventObject {
-    private Long orderId;
+    private final Long orderId;
 
     public Long getOrderId() {
         return orderId;

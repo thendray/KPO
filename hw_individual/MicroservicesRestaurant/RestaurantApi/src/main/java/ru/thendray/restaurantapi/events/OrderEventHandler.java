@@ -22,21 +22,20 @@ public class OrderEventHandler implements EventListener {
 
     public void handleEvent(OrderEvent event) {
 
-        long randomDelay = ThreadLocalRandom.current().nextLong(1000, 10001);
-        Optional<OrderEntity> order = orderRepository.findById(event.getOrderId());
-        if (order.isEmpty()) {
-            return;
-        }
-        order.get().setStatus(OrderStatus.TAKEN);
-        orderRepository.saveAndFlush(order.get());
-        try {
-            TimeUnit.MILLISECONDS.sleep(randomDelay);
-            order.get().setStatus(OrderStatus.READY);
-            orderRepository.saveAndFlush(order.get());
+        long rndTimeDelay = ThreadLocalRandom.current().nextLong(1000, 10001);
 
-        } catch (InterruptedException e) {
-            order.get().setStatus(OrderStatus.CANCELLED);
-            orderRepository.saveAndFlush(order.get());
+        Optional<OrderEntity> order = orderRepository.findById(event.getOrderId());
+        if (order.isPresent()) {
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(rndTimeDelay);
+                order.get().setStatus(OrderStatus.READY);
+                orderRepository.saveAndFlush(order.get());
+
+            } catch (InterruptedException e) {
+                order.get().setStatus(OrderStatus.CANCELLED);
+                orderRepository.saveAndFlush(order.get());
+            }
         }
 
     }
